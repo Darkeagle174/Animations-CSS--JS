@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="blob"></div>
+    <div id="blur"></div>
+</body>
+<script>
+    const blob = document.getElementById('blob');
+
+    document.body.onpointermove = event => {
+        const { clientX, clientY } = event;
+
+        blob.animate({
+            left: `${clientX}px`,
+            top: `${clientY}px`
+        }, {duration: 3000, fill: "forwards"})
+    }
+</script>
+
+</html>

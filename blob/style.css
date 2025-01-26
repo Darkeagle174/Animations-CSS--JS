@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: black;
+
+}
+
+#blob {
+    background: linear-gradient(
+        to right,
+        aqua,
+        purple
+    );
+    height: 500px;
+    aspect-ratio: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    animation: rotate 20s infinite;
+}
+
+#blur {
+    height: 500vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 2;
+    backdrop-filter: blur(200px);
+}
+
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    25% {
+        background: linear-gradient(
+        to right,
+        purple,
+        pink
+    );
+    }
+
+    50% {
+        scale: 1 1.5;
+        background: linear-gradient(
+        to right,
+        pink,
+        yellow
+    );
+    }
+
+    75% {
+        background: linear-gradient(
+        to right,
+        yellow,
+        rgb(2, 181, 2)
+    );
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
