@@ -1,0 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#paper {
+    height: 100vh;
+    width: 100vw;
+    background-color: #000
+}
