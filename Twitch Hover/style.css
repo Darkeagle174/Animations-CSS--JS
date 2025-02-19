@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&family=Bebas+Neue&family=Exo+2:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:wght@300&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    place-items: center;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: #000;
+    margin: 0rem;
+    overflow: hidden;
+}
+
+:root {
+    --border :rgb(0, 200, 255);
+    --gr1 : #8800ff;
+    --gr2 : #fa0000;
+    --gr3 : #ffd500;
+}
+
+.card  {
+    width: 56vmin;
+    aspect-ratio: 1/1.6;
+    border: 0.5vmin solid var(--border);
+    cursor: pointer;
+    position: relative;
+    margin-top: 40px;
+}
+
+.card:hover {
+    border: none;
+}
+
+.card:hover:before {
+    background-position: 100% 100%;
+    transform: scale(1.08, 1.03);
+
+}
+
+.card:hover > .card-content {
+    background-position: -10% 0%;
+}
+
+.card:hover > .card-content > .subtitle > .card-subtitle-word {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+
+.card::before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%,
+        var(--gr1) 66%,
+        var(--gr2) 83.5%,
+        var(--gr3) 100%
+
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    position: absolute;
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    top: 0px;
+    transition: background-position 350ms ease;
+    width: 100%;
+    z-index: -1;
+}
+
+.card-content {
+    background: radial-gradient(
+        rgba(255, 255, 255, 0.9) 8%,
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 5vmin 5vmin;
+    height: calc(100% - 10vmin);
+    padding: 5vmin;
+    transition: background-position 350ms ease;
+    width: calc(100% - 10vmin);
+}
+
+.title, .subtitle{
+    color: white;
+    font-family: "Anek Latin";
+    font-weight: 400;
+    margin: 0;
+}
+
+.title {
+    font-size: 6vmin;
+}
+
+.subtitle {
+    font-weight: 3vmin;
+    margin-top: 2vmin;
+}
+
+.card-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    position: relative;
+    transform: translateY(40%);
+    transition: none;
+    opacity: 0;
+}
