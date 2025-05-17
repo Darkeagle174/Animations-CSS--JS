@@ -146,9 +146,62 @@ function initializeScene() {
             let drawWidth, drawHeight, drawX, drawY;
 
             if (imgAspect  > rectAspect) {
-                
+                drawHeight = slideRect.height;
+                drawWidth = drawHeight * imgAspect;
+                drawX = slideRect.x + (slideRect.width - drawWidth) / 2;
+                drawY = slideRect.y;
+            } else {
+                drawWidth = slideRect.width;
+                drawHeight = drawWidth / imgAspect;
+                drawX = slideRect.x;
+                drawY = slideRect.y + (slideRect.height - drawHeight) / 2;
             }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(
+                slideRect.x,
+                slideRect.y,
+                slideRect.width,
+                slideRect.height,
+            );
+            ctx.clip();
+            ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+            ctx.restore();
+
+            ctx.fillStyle = "white";
+            ctx.fillText(
+                slideTitles[slideIndex],
+                textureCanvas.width / 2,
+                wrappedY + slideRect.height / 2,
+            );
         }
     }
+
+    texture.needsUpdate = true;
 };
+
+let currentScroll = 0;
+lenis.on("scroll", ({scroll,  limit, velocity, direction, progress}) => {
+    currentScroll = scroll/limit;
+    updateTexture(-currentScroll);
+    renderer.render(scene, camera);
+});
+
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+    };
+    resizeTimeout = setTimeout(() => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }, 250);
+});
+
+updateTexture(0);
+renderer.render(scene, camera);
+
+loadImages();
 
