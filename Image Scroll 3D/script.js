@@ -5,15 +5,15 @@ window.addEventListener('load', () => {
         requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
-} )
+})
 
 const images = [];
 let loadedImageCount = 0;
 
 function loadImages() {
-    for(let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 7; i++) {
         const img = new Image();
-        img.onload = function() {
+        img.onload = function () {
             images.push(img);
             loadedImageCount++;
 
@@ -22,13 +22,13 @@ function loadImages() {
             }
         };
 
-        img.onerror  = function() {
+        img.onerror = function () {
             loadedImageCount++;
             if (loadedImageCount === 7) {
                 initializeScene();
             }
         };
-        img.src = `./assests/img${i}.jpg`;
+        img.src = `./assets/img${i}.jpg`;
     }
 }
 
@@ -51,11 +51,11 @@ function initializeScene() {
     const curvature = 35;
     const segmentsX = 200;
     const segmentsY = 200;
-    
+
     const parentGeometry = new THREE.PlaneGeometry(parentWidth, parentHeight, segmentsX, segmentsY);
 
     const positions = parentGeometry.attributes.position.array;
-    for(let i = 0; i < positions.length; i += 3) {
+    for (let i = 0; i < positions.length; i += 3) {
         const y = positions[i + 1];
         const distanceFromCenter = Math.abs(y / (parentHeight / 2));
         positions[i + 2] = Math.pow(distanceFromCenter, 2) * curvature;
@@ -65,7 +65,7 @@ function initializeScene() {
     const totalSlides = 7;
     const slideHeight = 15;
     const gap = 0.5;
-    const cycleHeight = totalSlides * (slideHeight + gap);  
+    const cycleHeight = totalSlides * (slideHeight + gap);
 
     const textureCanvas = document.createElement('canvas');
     const ctx = textureCanvas.getContext('2d', {
@@ -96,8 +96,8 @@ function initializeScene() {
 
     const distance = 17.5;
     const heightOffset = 5;
-    const OffsetX =  distance * Math.sin(THREE.MathUtils.degToRad(20));
-    const offsetZ =  distance * Math.cos(THREE.MathUtils.degToRad(20));
+    const OffsetX = distance * Math.sin(THREE.MathUtils.degToRad(20));
+    const offsetZ = distance * Math.cos(THREE.MathUtils.degToRad(20));
 
     camera.position.set(OffsetX, heightOffset, offsetZ);
     camera.lookAt(0, -2, 0);
@@ -132,20 +132,19 @@ function initializeScene() {
 
         const slideRect = {
             x: textureCanvas.width * 0.05,
-
             y: wrappedY,
             width: textureCanvas.width * 0.9,
             height: (slideHeight / cycleHeight) * textureCanvas.height,
         };
 
         const img = images[slideNumber - 1];
-        if(img) {
+        if (img) {
             const imgAspect = img.width / img.height;
             const rectAspect = slideRect.width / slideRect.height;
 
             let drawWidth, drawHeight, drawX, drawY;
 
-            if (imgAspect  > rectAspect) {
+            if (imgAspect > rectAspect) {
                 drawHeight = slideRect.height;
                 drawWidth = drawHeight * imgAspect;
                 drawX = slideRect.x + (slideRect.width - drawWidth) / 2;
@@ -182,8 +181,8 @@ function initializeScene() {
 };
 
 let currentScroll = 0;
-lenis.on("scroll", ({scroll,  limit, velocity, direction, progress}) => {
-    currentScroll = scroll/limit;
+lenis.on("scroll", ({ scroll, limit, velocity, direction, progress }) => {
+    currentScroll = scroll / limit;
     updateTexture(-currentScroll);
     renderer.render(scene, camera);
 });
